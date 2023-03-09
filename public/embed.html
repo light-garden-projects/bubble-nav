@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+
+    <!-- <script src="https://dreams-2020.netlify.app//static/js/main.js"></script> -->
+    <script src="https://dreams-2020.netlify.app/static/js/main.js"></script>
+    <link rel="stylesheet" href="https://dreams-2020.netlify.app/static/css/main.css" />
+
+
+    <title>Dream Chart - Embed Test</title>
+
+    <style>
+        ol li {
+            margin-bottom: 1rem;
+        }
+
+        #embed {
+                    width: 800px;
+                    max-width: 100%;
+                    margin: auto;
+                }
+
+    </style>
+</head>
+
+<body>
+    <article id="dreams2020-embed-instructions">
+    <div class="instructions">
+        <h1>This is the Dreams 2020 embed testing page.</h1>
+        <p>We're going to embed the chart below.</p>
+
+    <h2>The embed code is as follows:</h2>
+    <ol>
+        <li>
+            <p>
+                In the <code>&lt;head&gt;</code> of your page, include our CSS and JavaScript bundles:
+            </p>
+            <p>
+                <code>
+                    &lt;script
+                    src=&quot;https://dreams-2020.netlify.app/static/js/main.js&quot;&gt;&lt;/script&gt;
+            </code>
+                </br>
+                <code>
+                    &lt;link rel=&quot;stylesheet&quot;
+                    href=&quot;https://dreams-2020.netlify.app/static/css/main.css&quot;
+                    /&gt;
+            </code>
+            Make sure to give the embed div sensible styles, based on your page. E.g.:
+            <pre>
+                #embed {
+                    width: 800px;
+                    max-width: 100%;
+                    margin: auto;
+                }
+            </pre>
+            </p>
+        </li>
+        <li>
+            Include an empty <code>&lt;div&gt;</code> on your page, with an ID so you may select it from code. e.g.:
+            <code>
+                    &lt;div id=&quot;embed&quot; &gt;&lt;/div&gt;
+            </code>
+        </li>
+        <li>
+            <p>Run our embed script in a <code>&lt;script&gt;</code> tag, e.g.</p>
+            <p>
+                <code>
+                &lt;script&gt; window.embedDreamChart(&quot;#embed&quot;); &lt;/script&gt;
+            </code>
+            </p>
+            <p>The above function, <code>window.embedDreamChart</code>, accepts 2 parameters:
+                <ul>
+                    <li>
+
+                        A selector string (e.g.
+                        <code>"#embed"</code>). This refers to the empty div you made.
+                    </li>
+                    <li>
+                        Optionally, an options parameter to elect which graph to show, whether
+                        to allow toggling to other graphs, which things are default active (only works for bubble charts right now), and which charts are accessible.  e.g:
+                        <code>{activeChart: "area", showAll: true, activeLegends: {dreamers: ["Freya", "Edward"]}, toggleableCharts: ["bubble", "dreamers"]}</code> If you don't add this parameter, it will default to the bar chart and toggleable.
+                    </li>
+                    <li>
+                    </li>
+                </ul>
+            </p>
+
+        </li>
+    </ol>
+</div>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+<div id="embed"></div>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+</article>
+
+    <script>
+        window.embedBubbleNav("#embed", {activeChart: "dreamers", showAll: true, activeLegends: {dreamers: ["Freya", "Edward"]}, toggleableCharts: ["bubble", "dreamers"]});
+    </script>
+</body>
+
+</html>
