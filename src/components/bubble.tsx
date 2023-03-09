@@ -51,7 +51,7 @@ export const Bubble = ({
           r={r}
           stroke={stroke}
           strokeWidth={strokeWidth}
-          fill={`url(#image)`}
+          fill={`url(#${page.backgroundImage})`}
           opacity={opacity}
           onMouseOver={onMouseOver}
           onMouseOut={onMouseOut}
@@ -64,7 +64,7 @@ export const Bubble = ({
           {...moveIntoPlaceSpring}
           textAnchor="middle"
           alignmentBaseline="middle"
-          fill="black"
+          fill="white"
           fontSize={12}
           fontWeight="bold"
         >

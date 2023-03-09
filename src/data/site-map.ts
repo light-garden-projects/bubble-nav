@@ -8,6 +8,7 @@ export const siteMap: Page = {
     {
       title: "Introduction",
       url: "https://scalar.usc.edu/works/2020-dreams/introduction",
+      backgroundImage: "/media/introduction-min.png",
       children: [
         {
           title: "What are The 2020 Dreams?",
@@ -102,6 +103,7 @@ export const siteMap: Page = {
     {
       title: "Continuities",
       url: "https://scalar.usc.edu/works/2020-dreams/continuities",
+      backgroundImage: "/media/continuities-min.png",
       children: [
         {
           title: "Dreamer Word Search Findings",
@@ -133,6 +135,7 @@ export const siteMap: Page = {
     {
       title: "Reflections",
       url: "https://scalar.usc.edu/works/2020-dreams/reflections",
+      backgroundImage: "/media/reflections-min.png",
       children: [
         {
           title: "Theoretical Foundations",
@@ -154,6 +157,7 @@ export const siteMap: Page = {
     {
       title: "Methodology",
       url: "https://scalar.usc.edu/works/2020-dreams/methodology",
+      backgroundImage: "/media/methodology-min.png",
       children: [
         {
           title: "Research design: an outline",
@@ -180,6 +184,7 @@ export const siteMap: Page = {
     {
       title: "Conclusions",
       url: "https://scalar.usc.edu/works/2020-dreams/conclusions",
+      backgroundImage: "/media/conclusions-min.png",
       children: [
         {
           title: "The Mindful approach to Dream Data",
@@ -200,12 +205,14 @@ export const siteMap: Page = {
     },
     {
       title: "Works Cited",
-      url: "",
+      url: "https://scalar.usc.edu/works/2020-dreams/works-cited",
+      backgroundImage: "/media/works_cited-min.png",
       children: [],
     },
     {
       title: "Appendices and Repositories",
       url: "https://scalar.usc.edu/works/2020-dreams/appendices-and-repositories",
+      backgroundImage: "/media/appendices_and_repositories-min.png",
       children: [
         {
           title: "Glossary of Concepts and Terms",

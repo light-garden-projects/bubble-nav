@@ -9,7 +9,8 @@ const width = 500;
 const height = 500;
 const centre: Point = [width / 2, height / 2];
 
-// const testurl = "https://www.njamed.com/images/phrasebook/Council%20office.jpg";
+const testurl =
+  "https://scalar.usc.edu/works/2020-dreams/media/appendices_and_repositories-min.png";
 
 export const BubbleNav = ({ siteMap }: BubbleNavProps) => {
   return (
@@ -20,20 +21,27 @@ export const BubbleNav = ({ siteMap }: BubbleNavProps) => {
     >
       <svg width={width} height={height}>
         <defs>
-          <pattern
-            id="image"
-            patternUnits="userSpaceOnUse"
-            height="100"
-            width="100"
-          >
-            <image
-              x="0"
-              y="0"
-              height="100"
-              width="100"
-              xlinkHref="http://i.imgur.com/7Nlcay7.jpg"
-            ></image>
-          </pattern>
+          {siteMap.children
+            .filter((page) => page.backgroundImage)
+            .map((page) => {
+              return (
+                <pattern
+                  key={page.url}
+                  id={page.backgroundImage}
+                  patternUnits="userSpaceOnUse"
+                  height="150"
+                  width="150"
+                >
+                  <image
+                    x="0"
+                    y="0"
+                    height="150"
+                    width="150"
+                    xlinkHref={page.backgroundImage}
+                  ></image>
+                </pattern>
+              );
+            })}
         </defs>
         <circle id="top" cx="50" cy="50" r="50" fill="url(#image)" />
         {siteMap.children.map((page) => {
@@ -43,7 +51,7 @@ export const BubbleNav = ({ siteMap }: BubbleNavProps) => {
               page={page}
               startPoint={centre}
               endPoint={[Math.random() * width, Math.random() * height]}
-              r={50}
+              r={75}
             />
           );
         })}
