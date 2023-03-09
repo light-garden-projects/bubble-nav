@@ -1,7 +1,8 @@
 import { animated, useSpring } from "react-spring";
-import { Point } from "../types/types";
+import { Page, Point } from "../types/types";
 
 type BubbleProps = {
+  page: Page;
   startPoint: Point;
   endPoint: Point;
   r?: number;
@@ -15,6 +16,7 @@ type BubbleProps = {
 };
 
 export const Bubble = ({
+  page,
   r = 20,
   stroke = "black",
   strokeWidth = 1,
@@ -29,24 +31,46 @@ export const Bubble = ({
   const [startX, startY] = startPoint;
   const [endX, endY] = endPoint;
 
-  const moveIntoPlaceSpring = useSpring({
+  const moveIntoPlaceCircleSpring = useSpring({
     to: { cx: endX, cy: endY },
     from: { cx: startX, cy: startY },
     config: { mass: 5, tension: 500, friction: 65, clamp: false },
   });
 
+  const moveIntoPlaceSpring = useSpring({
+    to: { x: endX, y: endY },
+    from: { x: startX, y: startY },
+    config: { mass: 5, tension: 500, friction: 65, clamp: false },
+  });
+
   return (
-    <animated.circle
-      {...moveIntoPlaceSpring}
-      r={r}
-      stroke={stroke}
-      strokeWidth={strokeWidth}
-      fill={fill}
-      opacity={opacity}
-      onMouseOver={onMouseOver}
-      onMouseOut={onMouseOut}
-      style={{ cursor: "pointer" }}
-      onClick={onClick}
-    />
+    <>
+      <a href={page.url}>
+        <animated.circle
+          {...moveIntoPlaceCircleSpring}
+          r={r}
+          stroke={stroke}
+          strokeWidth={strokeWidth}
+          fill={`url(#image)`}
+          opacity={opacity}
+          onMouseOver={onMouseOver}
+          onMouseOut={onMouseOut}
+          style={{ cursor: "pointer" }}
+          onClick={onClick}
+        />
+      </a>
+      <a href={page.url}>
+        <animated.text
+          {...moveIntoPlaceSpring}
+          textAnchor="middle"
+          alignmentBaseline="middle"
+          fill="black"
+          fontSize={12}
+          fontWeight="bold"
+        >
+          {page.title}
+        </animated.text>
+      </a>
+    </>
   );
 };

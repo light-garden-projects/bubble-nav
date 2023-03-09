@@ -3,10 +3,11 @@ import { Page } from "../types/types";
 export const siteMap: Page = {
   title: "Dreams 2020",
   url: "https://scalar.usc.edu/works/2020-dreams/contents",
+  isHomePage: true,
   children: [
     {
       title: "Introduction",
-      url: '"https://scalar.usc.edu/works/2020-dreams/introduction',
+      url: "https://scalar.usc.edu/works/2020-dreams/introduction",
       children: [
         {
           title: "What are The 2020 Dreams?",
