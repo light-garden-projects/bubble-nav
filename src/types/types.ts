@@ -4,6 +4,7 @@ export type Page = {
   backgroundImage?: string;
   isHomePage?: boolean;
   children: Page[];
+  parent?: Page;
 };
 
 export type Point = [number, number];
