@@ -10,9 +10,10 @@ type BubbleProps = {
   stroke?: string;
   opacity?: number;
   strokeWidth?: number;
-  onClick?: (e: React.MouseEvent<SVGCircleElement, MouseEvent>) => void;
+  onClick?: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
   onMouseOver?: (e: React.MouseEvent<SVGCircleElement, MouseEvent>) => void;
   onMouseOut?: () => void;
+  selected?: boolean;
 };
 
 export const Bubble = ({
@@ -20,16 +21,19 @@ export const Bubble = ({
   r = 20,
   stroke = "black",
   strokeWidth = 1,
-  fill = "white",
+  fill = "rgba(4,100,128, 1)",
   onMouseOver,
   onMouseOut,
   startPoint,
   endPoint,
   opacity,
   onClick,
+  selected,
 }: BubbleProps) => {
   const [startX, startY] = startPoint;
   const [endX, endY] = endPoint;
+
+  const radius = selected ? r * 1.2 : r * 0.8;
 
   const moveIntoPlaceCircleSpring = useSpring({
     to: { cx: endX, cy: endY },
@@ -45,32 +49,34 @@ export const Bubble = ({
 
   return (
     <>
-      <a href={page.url}>
-        <animated.circle
-          {...moveIntoPlaceCircleSpring}
-          r={r}
-          stroke={stroke}
-          strokeWidth={strokeWidth}
-          fill={`url(#${page.backgroundImage})`}
-          opacity={opacity}
-          onMouseOver={onMouseOver}
-          onMouseOut={onMouseOut}
-          style={{ cursor: "pointer" }}
-          onClick={onClick}
-        />
-      </a>
-      <a href={page.url}>
-        <animated.text
-          {...moveIntoPlaceSpring}
-          textAnchor="middle"
-          alignmentBaseline="middle"
-          fill="white"
-          fontSize={12}
-          fontWeight="bold"
-        >
-          {page.title}
-        </animated.text>
-      </a>
+      {/* <a href={page.url}> */}
+      <animated.circle
+        {...moveIntoPlaceCircleSpring}
+        r={radius}
+        stroke={stroke}
+        strokeWidth={selected ? strokeWidth + 5 : strokeWidth}
+        fill={page.backgroundImage ? `url(#${page.backgroundImage})` : fill}
+        opacity={opacity}
+        onMouseOver={onMouseOver}
+        onMouseOut={onMouseOut}
+        style={{ cursor: "pointer" }}
+        onClick={onClick}
+      />
+      {/* </a> */}
+      {/* <a href={page.url}> */}
+      <animated.text
+        {...moveIntoPlaceSpring}
+        textAnchor="middle"
+        alignmentBaseline="middle"
+        fill="yellow"
+        fontSize={12}
+        fontWeight="bold"
+        style={{ cursor: "pointer" }}
+        onClick={onClick}
+      >
+        {page.title}
+      </animated.text>
+      {/* </a> */}
     </>
   );
 };
