@@ -4,6 +4,9 @@ import { Point } from "../types/types";
 const NUM_RADIANS_IN_CIRCLE = Math.PI * 2;
 // 90 degrees is one quarter of this
 const NINETY_DEGREES = NUM_RADIANS_IN_CIRCLE / 4;
+const FORTY_FIVE_DEGREES = NUM_RADIANS_IN_CIRCLE / 8;
+
+type offset = "ninety" | "forty-five";
 
 // const getPointsOnCircle = (numPoints, radius, centerXY, offset, rotate, simple);
 
@@ -13,16 +16,22 @@ export const getCirclePoints = (
   numPoints: number,
   radius = 1,
   centre: Point = [0, 0],
-  offsetCircle?: boolean,
+  offsetCircle?: offset,
   rotateCircle?: boolean
 ): Point[] => {
   if (!numPoints) return [];
+
+  const offset: number = offsetCircle
+    ? offsetCircle === "ninety"
+      ? NINETY_DEGREES
+      : FORTY_FIVE_DEGREES
+    : 0;
 
   const [centreX, centreY] = centre;
 
   const points: Point[] = Array(numPoints)
     .fill(0)
-    .map((v, i) => {
+    .map((_, i) => {
       // Angle gap between points
       const angleGap = NUM_RADIANS_IN_CIRCLE / numPoints;
       // Go around the circle incrementing i
@@ -31,7 +40,8 @@ export const getCirclePoints = (
       const offsetAngle = baseAngle - NINETY_DEGREES;
       // If num points is even
       // We want something more like a square than a diamond, to conserve space
-      const theta = offsetCircle ? offsetAngle - angleGap / 2 : offsetAngle;
+      //   const theta = offsetCircle ? offsetAngle - angleGap / 2 : offsetAngle;
+      const theta = offsetCircle ? offsetAngle + offset : offsetAngle;
 
       const x = centreX + radius * Math.cos(theta);
       const y = centreY + radius * Math.sin(theta);

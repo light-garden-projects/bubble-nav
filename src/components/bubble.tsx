@@ -43,14 +43,16 @@ export const Bubble = ({
     ? r * SELECTED_CIRCLE_MULTIPLIER
     : r * UNSELECTED_CIRCLE_MULTIPLIER;
 
+  const radiusAdjustedEndX = selected ? endX : endX;
+
   const moveIntoPlaceCircleSpring = useSpring({
-    to: { cx: endX, cy: endY },
+    to: { cx: radiusAdjustedEndX, cy: endY },
     from: { cx: startX, cy: startY },
     config: { mass: 5, tension: 500, friction: 65, clamp: false },
   });
 
   const moveIntoPlaceSpring = useSpring({
-    to: { x: endX, y: endY + radius + fontSize },
+    to: { x: radiusAdjustedEndX, y: endY + radius + fontSize },
     from: { x: startX, y: startY },
     config: { mass: 5, tension: 500, friction: 65, clamp: false },
   });
