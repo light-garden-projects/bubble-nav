@@ -42,6 +42,7 @@ export const BubbleNav = ({
     return getSiblings(currentPage);
   }, [currentPage]);
 
+  //////////// CIRCLE1 ////////////
   // If the current page is the root page, circle1 is the children
   // Else, circle1 is the siblings
   const circle1 = useMemo(() => {
@@ -58,6 +59,17 @@ export const BubbleNav = ({
     width / 2 - circleRadius - bounceOffset,
     center
   );
+
+  //////////// CIRCLE2 ////////////
+  // If the root page is selected, there is no circle2
+  // Else, circle2 is the children of the selected page
+  const circle2 = useMemo(() => {
+    if (currentPage && currentPage.url === siteMap.url) {
+      return [];
+    } else {
+      return currentPage?.children || [];
+    }
+  }, [currentPage, siteMap]);
 
   //////////// CENTER CIRCLE ////////////
   // If the current page is the root page, the center circle is the root page
@@ -112,17 +124,40 @@ export const BubbleNav = ({
         </defs>
         <circle id="top" cx="50" cy="50" r="50" fill="url(#image)" />
         {circle1.map((page, i) => {
+          const isSelected = page.url === currentUrl;
           return (
-            <Bubble
-              key={page.url}
-              page={page}
-              startPoint={center}
-              endPoint={circlePoints[i]}
-              r={circleRadius}
-              onClick={() => onBubbleClick(page.url)}
-              selected={page.url === currentUrl}
-              stroke={"rgba(4,100,128, 1)"}
-            />
+            <>
+              <Bubble
+                key={page.url}
+                page={page}
+                startPoint={center}
+                endPoint={circlePoints[i]}
+                r={circleRadius}
+                onClick={() => onBubbleClick(page.url)}
+                selected={page.url === currentUrl}
+                stroke={"rgba(4,100,128, 1)"}
+              />
+              {isSelected && (
+                <>
+                  {circle2.map((page, i) => {
+                    return (
+                      <>
+                        <Bubble
+                          key={page.url}
+                          page={page}
+                          startPoint={circlePoints[i]}
+                          endPoint={circlePoints[i]}
+                          r={circleRadius}
+                          onClick={() => onBubbleClick(page.url)}
+                          selected={page.url === currentUrl}
+                          stroke={"rgba(4,100,128, 1)"}
+                        />
+                      </>
+                    );
+                  })}
+                </>
+              )}
+            </>
           );
         })}
         {/* Central circle */}
