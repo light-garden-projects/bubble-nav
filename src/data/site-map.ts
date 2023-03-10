@@ -210,7 +210,7 @@ export const siteMap: Page = {
       children: [],
     },
     {
-      title: "Appendices and Repositories",
+      title: "Appendices",
       url: "https://scalar.usc.edu/works/2020-dreams/appendices-and-repositories",
       backgroundImage: "/media/appendices_and_repositories-min.png",
       children: [

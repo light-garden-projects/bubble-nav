@@ -8,34 +8,40 @@ import { getCirclePoints } from "../modules/points-on-circle";
 import { Page, Point } from "../types/types";
 import { Bubble } from "./bubble";
 
+type CirclePoint = {
+  point: Point;
+  page: Page;
+};
+
 type BubbleNavProps = {
   siteMap: Page;
   currentUrl: string;
   onBubbleClick: (url: string) => void;
 };
 
-export const SELECTED_CIRCLE_MULTIPLIER = 1.2;
-export const UNSELECTED_CIRCLE_MULTIPLIER = 0.8;
+export const SELECTED_CIRCLE_MULTIPLIER = 1.1;
+export const UNSELECTED_CIRCLE_MULTIPLIER = 0.7;
 
 const width = 500;
 const height = 500;
 const center: Point = [width / 2, height / 2];
-const circleRadius = 50;
+const circleRadius = width / 15;
 const bounceOffset = 20;
+const ring1Radius = width / 4;
 
 export const BubbleNav = ({
   siteMap,
   currentUrl,
   onBubbleClick,
 }: BubbleNavProps) => {
-  useEffect(() => {
-    console.log("currentUrl", currentUrl);
-  }, [currentUrl]);
-
   // Get the page object for the current URL
   const currentPage = useMemo(() => {
     return getCurrentPage(currentUrl, siteMap);
   }, [currentUrl, siteMap]);
+
+  const isRootPage = useMemo(() => {
+    return currentPage && currentPage.url === siteMap.url;
+  }, [currentPage, siteMap]);
 
   // Get the sibling pages for the current page
   const siblingPages = useMemo(() => {
@@ -45,31 +51,67 @@ export const BubbleNav = ({
   //////////// CIRCLE1 ////////////
   // If the current page is the root page, circle1 is the children
   // Else, circle1 is the siblings
-  const circle1 = useMemo(() => {
+  const circle1: CirclePoint[] = useMemo(() => {
+    // Get the pages to display on circle1
+    let circle1Pages: Page[] = [];
     if (currentPage && currentPage.url === siteMap.url) {
-      return currentPage.children;
+      circle1Pages = currentPage.children;
     } else {
-      return siblingPages;
+      circle1Pages = siblingPages;
     }
+
+    // Get the points for those pages
+    const numPointsOnCircle = circle1Pages.length;
+    const circle1Points = getCirclePoints(
+      numPointsOnCircle,
+      ring1Radius,
+      center
+    );
+
+    // Combine them
+    return circle1Pages.map((page, i) => {
+      return {
+        page,
+        point: circle1Points[i],
+      };
+    });
   }, [currentPage, siteMap, siblingPages]);
 
-  const numPointsOnCircle = circle1.length;
-  const circlePoints = getCirclePoints(
-    numPointsOnCircle,
-    width / 2 - circleRadius - bounceOffset,
-    center
-  );
-
   //////////// CIRCLE2 ////////////
-  // If the root page is selected, there is no circle2
-  // Else, circle2 is the children of the selected page
-  const circle2 = useMemo(() => {
+
+  const circle2: CirclePoint[] = useMemo(() => {
+    let circle2pages: Page[] = [];
+    // If the root page is selected, there is no circle2
     if (currentPage && currentPage.url === siteMap.url) {
-      return [];
-    } else {
-      return currentPage?.children || [];
+      circle2pages = [];
     }
-  }, [currentPage, siteMap]);
+    // Else, circle2 is the children of the selected page
+    else {
+      circle2pages = currentPage?.children || [];
+    }
+
+    // Get the center point for circle2
+    // This is the center of the selected page
+    const circle2Center =
+      circle1.find((circle) => circle.page.url === currentPage?.url)?.point ||
+      center;
+
+    // Get the points for those pages
+    const numPointsOnCircle = circle2pages.length;
+    const circle2Points = getCirclePoints(
+      numPointsOnCircle,
+      circleRadius * 2 + bounceOffset,
+      circle2Center
+    );
+
+    // Combine them
+    return circle2pages.map((page, i) => {
+      return {
+        page,
+        point: circle2Points[i],
+      };
+    });
+  }, [currentPage, siteMap, circle1]);
 
   //////////// CENTER CIRCLE ////////////
   // If the current page is the root page, the center circle is the root page
@@ -91,22 +133,26 @@ export const BubbleNav = ({
       key={currentUrl}
       style={{
         border: "1px solid black",
+
+        width: width,
+        height: height,
+        margin: "auto",
       }}
     >
       <svg width={width} height={height}>
         <defs>
           {circle1
-            .filter((page) => page.backgroundImage)
-            .map((page) => {
-              const isSelected = page.url === currentUrl;
+            .filter((circle) => circle.page.backgroundImage)
+            .map((circle) => {
+              const isSelected = circle.page.url === currentUrl;
               const multiplier = isSelected
                 ? SELECTED_CIRCLE_MULTIPLIER
                 : UNSELECTED_CIRCLE_MULTIPLIER;
               const effectiveRadius = circleRadius * multiplier;
               return (
                 <pattern
-                  key={page.url}
-                  id={page.backgroundImage}
+                  key={circle.page.url}
+                  id={circle.page.backgroundImage}
                   patternUnits="objectBoundingBox"
                   height="1"
                   width="1"
@@ -116,14 +162,19 @@ export const BubbleNav = ({
                     y="0"
                     height={effectiveRadius * 2}
                     width={effectiveRadius * 2}
-                    xlinkHref={page.backgroundImage}
+                    xlinkHref={circle.page.backgroundImage}
+                    // If it's not selected, make it grayscale
+                    style={{
+                      filter:
+                        isSelected || isRootPage ? "none" : "grayscale(100%)",
+                    }}
                   ></image>
                 </pattern>
               );
             })}
         </defs>
-        <circle id="top" cx="50" cy="50" r="50" fill="url(#image)" />
-        {circle1.map((page, i) => {
+        {circle1.map((circle, i) => {
+          const { page, point: circle1end } = circle;
           const isSelected = page.url === currentUrl;
           return (
             <>
@@ -131,7 +182,7 @@ export const BubbleNav = ({
                 key={page.url}
                 page={page}
                 startPoint={center}
-                endPoint={circlePoints[i]}
+                endPoint={circle1end}
                 r={circleRadius}
                 onClick={() => onBubbleClick(page.url)}
                 selected={page.url === currentUrl}
@@ -139,15 +190,16 @@ export const BubbleNav = ({
               />
               {isSelected && (
                 <>
-                  {circle2.map((page, i) => {
+                  {circle2.map((circle, i) => {
+                    const { page, point: circle2end } = circle;
                     return (
                       <>
                         <Bubble
                           key={page.url}
                           page={page}
-                          startPoint={circlePoints[i]}
-                          endPoint={circlePoints[i]}
-                          r={circleRadius}
+                          startPoint={circle1end}
+                          endPoint={circle2end}
+                          r={20}
                           onClick={() => onBubbleClick(page.url)}
                           selected={page.url === currentUrl}
                           stroke={"rgba(4,100,128, 1)"}

@@ -1,5 +1,9 @@
 import { animated, useSpring } from "react-spring";
 import { Page, Point } from "../types/types";
+import {
+  SELECTED_CIRCLE_MULTIPLIER,
+  UNSELECTED_CIRCLE_MULTIPLIER,
+} from "./bubble-nav";
 
 type BubbleProps = {
   page: Page;
@@ -14,6 +18,7 @@ type BubbleProps = {
   onMouseOver?: (e: React.MouseEvent<SVGCircleElement, MouseEvent>) => void;
   onMouseOut?: () => void;
   selected?: boolean;
+  fontSize?: number;
 };
 
 export const Bubble = ({
@@ -29,11 +34,14 @@ export const Bubble = ({
   opacity,
   onClick,
   selected,
+  fontSize = 12,
 }: BubbleProps) => {
   const [startX, startY] = startPoint;
   const [endX, endY] = endPoint;
 
-  const radius = selected ? r * 1.2 : r * 0.8;
+  const radius = selected
+    ? r * SELECTED_CIRCLE_MULTIPLIER
+    : r * UNSELECTED_CIRCLE_MULTIPLIER;
 
   const moveIntoPlaceCircleSpring = useSpring({
     to: { cx: endX, cy: endY },
@@ -42,7 +50,7 @@ export const Bubble = ({
   });
 
   const moveIntoPlaceSpring = useSpring({
-    to: { x: endX, y: endY },
+    to: { x: endX, y: endY + radius + fontSize },
     from: { x: startX, y: startY },
     config: { mass: 5, tension: 500, friction: 65, clamp: false },
   });
@@ -68,9 +76,9 @@ export const Bubble = ({
         {...moveIntoPlaceSpring}
         textAnchor="middle"
         alignmentBaseline="middle"
-        fill="yellow"
-        fontSize={12}
-        fontWeight="bold"
+        fill="black"
+        fontSize={fontSize}
+        fontWeight={selected ? "bold" : "normal"}
         style={{ cursor: "pointer" }}
         onClick={onClick}
       >
