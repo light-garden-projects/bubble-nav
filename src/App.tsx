@@ -4,6 +4,8 @@ import { siteMap } from "./data/site-map";
 import { BubbleNav } from "./components/bubble-nav";
 import { setParents } from "./modules/parse-objects";
 
+const navWidth = 400;
+
 function App() {
   const mySiteMap = siteMap;
   const [currentUrl, setCurrentUrl] = useState(mySiteMap.url);
@@ -16,6 +18,7 @@ function App() {
       <BubbleNav
         siteMap={sitemapWithParents}
         currentUrl={currentUrl}
+        maxWidth={navWidth}
         onBubbleClick={(url) => {
           setCurrentUrl(url);
         }}

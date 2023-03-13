@@ -1,4 +1,5 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
+import useComponentSize from "@rehooks/component-size";
 import {
   getCurrentPage,
   getParent,
@@ -18,24 +19,40 @@ export type CirclePoint = {
 type BubbleNavProps = {
   siteMap: Page;
   currentUrl: string;
+  maxWidth: number;
   onBubbleClick: (url: string) => void;
 };
 
 export const SELECTED_CIRCLE_MULTIPLIER = 1.2;
 export const UNSELECTED_CIRCLE_MULTIPLIER = 0.95;
+const SHOW_CIRCLES_RIGHT = false;
+const SPRING_PADDING = 0.15;
 
-const width = 800;
-const height = width * 0.75;
-const center: Point = [width / 3, height / 2];
-const circle1Radius = height / 14;
-const ring1Radius = height / 4;
-const ring2Radius = ring1Radius * 2;
+const MAX_WIDTH = 400;
 
 export const BubbleNav = ({
   siteMap,
   currentUrl,
+  maxWidth,
   onBubbleClick,
 }: BubbleNavProps) => {
+  // Keep track of width of vis
+  let visRef = useRef(null);
+  let { width: fullGraphWidth } = useComponentSize(visRef);
+  const navWidth = useMemo(() => {
+    return fullGraphWidth > maxWidth ? maxWidth : fullGraphWidth;
+  }, [fullGraphWidth, maxWidth]);
+  const center = useMemo(() => {
+    const c: Point = navWidth ? [navWidth / 2, navWidth / 2] : [100, 100];
+    return c;
+  }, [navWidth]);
+
+  // Various dimensions
+  const height = navWidth;
+  const circle1Radius = height / 10;
+  const ring1Radius = height / 2 - 2 * circle1Radius * (1 - SPRING_PADDING);
+  const ring2Radius = ring1Radius * 2;
+
   // Get the page object for the current URL
   const currentPage = useMemo(() => {
     return getCurrentPage(currentUrl, siteMap);
@@ -95,22 +112,10 @@ export const BubbleNav = ({
           return pt;
         }
       });
-
-      //   if (currentPagePoint) {
-      //     const ptsWithoutCurrentPage = pts.filter(
-      //       (pt) => pt.page.url !== currentPage.url
-      //     );
-      //     const reorderedPts = [currentPagePoint, ...ptsWithoutCurrentPage];
-      //     console.log("pts", pts);
-      //     console.log("reorderedPts", reorderedPts);
-      //     return reorderedPts;
-      //   } else {
-      //     return pts;
-      //   }
     }
 
     return pts;
-  }, [currentPage, siteMap, siblingPages, isRootPage]);
+  }, [currentPage, siteMap, siblingPages, isRootPage, ring1Radius, center]);
 
   //////////// CIRCLE2 ////////////
   // Circle2 is not really a circle, but an arc of a large circle
@@ -153,7 +158,7 @@ export const BubbleNav = ({
         id: page.url,
       };
     });
-  }, [currentPage, siteMap]);
+  }, [currentPage, siteMap, ring2Radius, center]);
 
   //////////// CENTER CIRCLE ////////////
   // If the current page is the root page, the center circle is the root page
@@ -173,15 +178,15 @@ export const BubbleNav = ({
   return (
     <div
       key={currentUrl}
+      ref={visRef}
       style={{
-        border: "1px solid black",
-
-        width: width,
+        border: "3px solid orange",
+        maxWidth: MAX_WIDTH,
         height: height,
         margin: "auto",
       }}
     >
-      <svg width={width} height={height}>
+      <svg width={navWidth} height={height}>
         <Defs
           circleRadius={circle1Radius}
           currentUrl={currentUrl}
@@ -203,7 +208,7 @@ export const BubbleNav = ({
                 selected={page.url === currentUrl}
                 stroke={"rgba(4,100,128, 1)"}
               />
-              {isSelected && (
+              {isSelected && SHOW_CIRCLES_RIGHT && (
                 <>
                   {circle2.map((circle, i) => {
                     const { page, id, point: circle2end } = circle;
@@ -239,6 +244,9 @@ export const BubbleNav = ({
           />
         )}
       </svg>
+      {circle2.map((x, i) => {
+        return <div key={i}>{x.page.title}</div>;
+      })}
     </div>
   );
 };
