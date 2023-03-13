@@ -15,6 +15,7 @@ function App() {
 
   return (
     <div className="App">
+      <p>{currentUrl}</p>
       <BubbleNav
         siteMap={sitemapWithParents}
         currentUrl={currentUrl}
@@ -23,7 +24,6 @@ function App() {
           setCurrentUrl(url);
         }}
       />
-      <p>{currentUrl}</p>
     </div>
   );
 }

@@ -51,8 +51,14 @@ export const Bubble = ({
     config: { mass: 5, tension: 500, friction: 65, clamp: false },
   });
 
-  const moveIntoPlaceSpring = useSpring({
+  const moveIntoPlaceText1Spring = useSpring({
     to: { x: radiusAdjustedEndX, y: endY + radius + fontSize },
+    from: { x: startX, y: startY },
+    config: { mass: 5, tension: 500, friction: 65, clamp: false },
+  });
+
+  const moveIntoPlaceText2Spring = useSpring({
+    to: { x: radiusAdjustedEndX, y: endY + radius + fontSize * 2 + 2 },
     from: { x: startX, y: startY },
     config: { mass: 5, tension: 500, friction: 65, clamp: false },
   });
@@ -75,7 +81,7 @@ export const Bubble = ({
       {/* </a> */}
       {/* <a href={page.url}> */}
       <animated.text
-        {...moveIntoPlaceSpring}
+        {...moveIntoPlaceText1Spring}
         textAnchor="middle"
         alignmentBaseline="middle"
         fill="black"
@@ -84,8 +90,22 @@ export const Bubble = ({
         style={{ cursor: "pointer" }}
         onClick={onClick}
       >
-        {page.title}
+        {page.titleLine1 || page.title}
       </animated.text>
+      {page.titleLine2 && (
+        <animated.text
+          {...moveIntoPlaceText2Spring}
+          textAnchor="middle"
+          alignmentBaseline="middle"
+          fill="black"
+          fontSize={fontSize}
+          fontWeight={selected ? "bold" : "normal"}
+          style={{ cursor: "pointer" }}
+          onClick={onClick}
+        >
+          {page.titleLine2}
+        </animated.text>
+      )}
       {/* </a> */}
     </>
   );

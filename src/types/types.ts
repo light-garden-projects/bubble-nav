@@ -1,5 +1,7 @@
 export type Page = {
   title: string;
+  titleLine1?: string;
+  titleLine2?: string;
   url: string;
   backgroundImage?: string;
   isHomePage?: boolean;

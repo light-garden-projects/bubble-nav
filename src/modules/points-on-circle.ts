@@ -6,7 +6,7 @@ const NUM_RADIANS_IN_CIRCLE = Math.PI * 2;
 const NINETY_DEGREES = NUM_RADIANS_IN_CIRCLE / 4;
 const FORTY_FIVE_DEGREES = NUM_RADIANS_IN_CIRCLE / 8;
 
-type offset = "ninety" | "forty-five";
+type offset = "ninety" | "forty-five" | "one-eighty";
 
 // const getPointsOnCircle = (numPoints, radius, centerXY, offset, rotate, simple);
 
@@ -24,7 +24,9 @@ export const getCirclePoints = (
   const offset: number = offsetCircle
     ? offsetCircle === "ninety"
       ? NINETY_DEGREES
-      : FORTY_FIVE_DEGREES
+      : offsetCircle === "forty-five"
+      ? FORTY_FIVE_DEGREES
+      : Math.PI
     : 0;
 
   const [centreX, centreY] = centre;

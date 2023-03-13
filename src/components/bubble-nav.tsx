@@ -9,6 +9,7 @@ import { getCirclePoints } from "../modules/points-on-circle";
 import { Page, Point } from "../types/types";
 import { Bubble } from "./bubble";
 import { Defs } from "./defs";
+import { ChildCard } from "./child-card";
 
 export type CirclePoint = {
   point: Point;
@@ -23,10 +24,9 @@ type BubbleNavProps = {
   onBubbleClick: (url: string) => void;
 };
 
-export const SELECTED_CIRCLE_MULTIPLIER = 1.2;
-export const UNSELECTED_CIRCLE_MULTIPLIER = 0.95;
+export const SELECTED_CIRCLE_MULTIPLIER = 1.1;
+export const UNSELECTED_CIRCLE_MULTIPLIER = 0.9;
 const SHOW_CIRCLES_RIGHT = false;
-const SPRING_PADDING = 0.15;
 
 const MAX_WIDTH = 400;
 
@@ -47,25 +47,34 @@ export const BubbleNav = ({
     return c;
   }, [navWidth]);
 
-  // Various dimensions
-  const height = navWidth;
-  const circle1Radius = height / 10;
-  const ring1Radius = height / 2 - 2 * circle1Radius * (1 - SPRING_PADDING);
-  const ring2Radius = ring1Radius * 2;
-
   // Get the page object for the current URL
   const currentPage = useMemo(() => {
     return getCurrentPage(currentUrl, siteMap);
   }, [currentUrl, siteMap]);
 
-  const isRootPage = useMemo(() => {
-    return !!currentPage && currentPage.url === siteMap.url;
-  }, [currentPage, siteMap]);
-
   // Get the sibling pages for the current page
   const siblingPages = useMemo(() => {
     return getSiblings(currentPage);
   }, [currentPage]);
+
+  // Get width of circles
+  const circle1Radius = useMemo(() => {
+    return siblingPages.length >= 10 ? navWidth / 14 : navWidth / 10;
+  }, [navWidth, siblingPages]);
+
+  const ring1Radius = useMemo(() => {
+    console.log(siblingPages.length);
+    const padding =
+      siblingPages.length === 2 || siblingPages.length === 4 ? 1.1 : 0.8;
+    return navWidth / 2 - 2 * circle1Radius * padding;
+  }, [navWidth, circle1Radius, siblingPages]);
+
+  const ring2Radius = ring1Radius * 2;
+  const height = navWidth;
+
+  const isRootPage = useMemo(() => {
+    return !!currentPage && currentPage.url === siteMap.url;
+  }, [currentPage, siteMap]);
 
   //////////// CIRCLE1 ////////////
   // If the current page is the root page, circle1 is the children
@@ -84,8 +93,8 @@ export const BubbleNav = ({
     const circle1Points = getCirclePoints(
       numPointsOnCircle,
       ring1Radius,
-      center,
-      isRootPage ? undefined : "ninety"
+      center
+      // isRootPage ? undefined : "forty-five"
     );
 
     // Combine them
@@ -97,25 +106,8 @@ export const BubbleNav = ({
       };
     });
 
-    // Always put the current page at the top
-    if (currentPage && !isRootPage) {
-      const currentPagePoint = pts.find(
-        (pt) => pt.page.url === currentPage.url
-      );
-      const firstPoint = pts[0];
-      return pts.map((pt, i) => {
-        if (i === 0) {
-          return { ...pt, point: currentPagePoint?.point || firstPoint.point };
-        } else if (pt.page.url === currentPage.url) {
-          return { ...pt, point: firstPoint.point };
-        } else {
-          return pt;
-        }
-      });
-    }
-
     return pts;
-  }, [currentPage, siteMap, siblingPages, isRootPage, ring1Radius, center]);
+  }, [currentPage, siteMap, siblingPages, ring1Radius, center]);
 
   //////////// CIRCLE2 ////////////
   // Circle2 is not really a circle, but an arc of a large circle
@@ -180,7 +172,6 @@ export const BubbleNav = ({
       key={currentUrl}
       ref={visRef}
       style={{
-        border: "3px solid orange",
         maxWidth: MAX_WIDTH,
         height: height,
         margin: "auto",
@@ -245,7 +236,15 @@ export const BubbleNav = ({
         )}
       </svg>
       {circle2.map((x, i) => {
-        return <div key={i}>{x.page.title}</div>;
+        return (
+          <ChildCard
+            key={i}
+            page={x.page}
+            onClick={() => {
+              onBubbleClick(x.page.url);
+            }}
+          />
+        );
       })}
     </div>
   );
