@@ -5,6 +5,7 @@ import {
   getParent,
   getSiblings,
   getTheme,
+  shadeHexColor,
 } from "../modules/parse-objects";
 import { getCirclePoints } from "../modules/points-on-circle";
 import { Page, Point } from "../types/types";
@@ -188,6 +189,7 @@ export const BubbleNav = ({
         {circle1.map((circle, i) => {
           const { page, point: circle1end } = circle;
           const isSelected = page.url === currentUrl;
+          const { color: themeColor, level } = getTheme(page);
           return (
             <g key={i}>
               <Bubble
@@ -199,6 +201,7 @@ export const BubbleNav = ({
                 onClick={() => onBubbleClick(page.url)}
                 selected={page.url === currentUrl}
                 stroke={getTheme(page).color}
+                fill={shadeHexColor(themeColor, 0.3 * level)}
               />
               {isSelected && SHOW_CIRCLES_RIGHT && (
                 <>

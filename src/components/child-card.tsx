@@ -1,6 +1,6 @@
 import { getTheme } from "../modules/parse-objects";
 import { Page } from "../types/types";
-import { ArrowRightCircle } from "./icons";
+import { AngleRight } from "./icons";
 
 type ChildCardProps = {
   page: Page;
@@ -19,7 +19,7 @@ export const ChildCard = ({ page, onClick }: ChildCardProps) => {
         width: "80%",
         marginLeft: "auto",
         marginRight: "auto",
-        backgroundColor: "white",
+        backgroundColor: themeColor,
         cursor: "pointer",
         border: `none`,
         marginBottom: 5,
@@ -28,9 +28,9 @@ export const ChildCard = ({ page, onClick }: ChildCardProps) => {
         alignItems: "center",
       }}
     >
-      <div style={{ width: 24, height: 24 }}></div>
-      <p style={{ color: themeColor }}>{page.title}</p>
-      <ArrowRightCircle color={themeColor} size={24} />
+      <div style={{ width: 18, height: 18 }}></div>
+      <p className="child-card__page-label">{page.title}</p>
+      <AngleRight color={"white"} size={18} />
     </button>
   );
 };

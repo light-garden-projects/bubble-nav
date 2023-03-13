@@ -2,65 +2,8 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+p.child-card__page-label {
+  font-size: 0.9rem;
+  font-weight: 400;
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.introduction {
-  color: #282c34;
-}
-
-.continuities {
-  color: #992904;
-}
-
-.reflections {
-  color: #997b04;
-}
-
-.methodology {
-  color: #00998b;
-}
-
-.conclusions {
-  color: #599914;
-}
-
-.appendices {
-  color: #567565;
-}
-
-.works_cited {
-  color: #9b21ba;
 }

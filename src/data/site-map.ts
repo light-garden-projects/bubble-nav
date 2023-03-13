@@ -187,7 +187,7 @@ export const siteMap: Page = {
       title: "Methodology",
       url: "https://scalar.usc.edu/works/2020-dreams/methodology",
       backgroundImage: "/media/methodology-min.png",
-      theme: "#E5C360",
+      theme: "#A87938",
       children: [
         {
           title: "Research design: an outline",

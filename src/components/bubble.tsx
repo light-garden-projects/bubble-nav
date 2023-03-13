@@ -25,7 +25,7 @@ export const Bubble = ({
   page,
   r = 20,
   stroke = "black",
-  strokeWidth = 1,
+  strokeWidth = 0,
   fill = "rgba(4,100,128, 1)",
   onMouseOver,
   onMouseOut,
