@@ -11,6 +11,7 @@ export const siteMap: Page = {
       titleLine1: "Introduction",
       url: "https://scalar.usc.edu/works/2020-dreams/introduction",
       backgroundImage: "/media/introduction-min.png",
+      theme: "#D1B099",
       children: [
         {
           title: "What are The 2020 Dreams?",
@@ -114,6 +115,7 @@ export const siteMap: Page = {
       title: "Continuities",
       url: "https://scalar.usc.edu/works/2020-dreams/continuities",
       backgroundImage: "/media/continuities-min.png",
+      theme: "#386F68",
       children: [
         {
           title: "Dreamer Word Search Findings",
@@ -156,6 +158,7 @@ export const siteMap: Page = {
       title: "Reflections",
       url: "https://scalar.usc.edu/works/2020-dreams/reflections",
       backgroundImage: "/media/reflections-min.png",
+      theme: "#A9440F",
       children: [
         {
           title: "Theoretical Foundations",
@@ -184,6 +187,7 @@ export const siteMap: Page = {
       title: "Methodology",
       url: "https://scalar.usc.edu/works/2020-dreams/methodology",
       backgroundImage: "/media/methodology-min.png",
+      theme: "#E5C360",
       children: [
         {
           title: "Research design: an outline",
@@ -217,6 +221,7 @@ export const siteMap: Page = {
       title: "Conclusions",
       url: "https://scalar.usc.edu/works/2020-dreams/conclusions",
       backgroundImage: "/media/conclusions-min.png",
+      theme: "#5E938F",
       children: [
         {
           title: "The Mindful approach to Dream Data",
@@ -245,12 +250,14 @@ export const siteMap: Page = {
       title: "Works Cited",
       url: "https://scalar.usc.edu/works/2020-dreams/works-cited",
       backgroundImage: "/media/works_cited-min.png",
+      theme: "#353732",
       children: [],
     },
     {
       title: "Appendices",
       url: "https://scalar.usc.edu/works/2020-dreams/appendices-and-repositories",
       backgroundImage: "/media/appendices_and_repositories-min.png",
+      theme: "#7D766E",
       children: [
         {
           title: "Glossary of Concepts and Terms",

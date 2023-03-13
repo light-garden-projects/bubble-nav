@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+.introduction {
+  color: #282c34;
+}
+
+.continuities {
+  color: #992904;
+}
+
+.reflections {
+  color: #997b04;
+}
+
+.methodology {
+  color: #00998b;
+}
+
+.conclusions {
+  color: #599914;
+}
+
+.appendices {
+  color: #567565;
+}
+
+.works_cited {
+  color: #9b21ba;
+}

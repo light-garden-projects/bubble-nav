@@ -7,7 +7,7 @@ export type Page = {
   isHomePage?: boolean;
   children: Page[];
   parentPage?: Page;
-  themeColor?: string;
+  theme?: string;
 };
 
 export type Point = [number, number];

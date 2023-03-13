@@ -77,6 +77,7 @@ export const Bubble = ({
         onMouseOut={onMouseOut}
         style={{ cursor: "pointer" }}
         onClick={onClick}
+        tabIndex={1}
       />
       {/* </a> */}
       {/* <a href={page.url}> */}

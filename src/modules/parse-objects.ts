@@ -57,3 +57,20 @@ export const getParent = function (
     return { ...currentPage.parentPage };
   }
 };
+
+export const getTheme = function (
+  currentPage: Page | undefined,
+  startIndex = 0
+): { color: string; level: number } {
+  // No theme
+  if (currentPage === undefined) return { color: "red", level: 0 };
+  // No parent page, no theme
+  if (!currentPage.parentPage && !currentPage.theme)
+    return { color: "red", level: 0 };
+  // Else return the theme recursively
+  if (currentPage.theme) {
+    return { color: currentPage.theme, level: startIndex };
+  } else {
+    return getTheme(currentPage.parentPage, startIndex + 1);
+  }
+};

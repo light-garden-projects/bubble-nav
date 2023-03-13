@@ -1,4 +1,6 @@
+import { getTheme } from "../modules/parse-objects";
 import { Page } from "../types/types";
+import { ArrowRightCircle } from "./icons";
 
 type ChildCardProps = {
   page: Page;
@@ -6,20 +8,29 @@ type ChildCardProps = {
 };
 
 export const ChildCard = ({ page, onClick }: ChildCardProps) => {
+  const theme = getTheme(page);
+  const { color: themeColor } = theme;
   return (
     <button
       onClick={() => {
         onClick(page.url);
       }}
       style={{
-        width: "100%",
+        width: "80%",
+        marginLeft: "auto",
+        marginRight: "auto",
         backgroundColor: "white",
         cursor: "pointer",
-        border: "1px solid #ccc",
-        marginBottom: "5px",
+        border: `none`,
+        marginBottom: 5,
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
       }}
     >
-      <p>{page.title}</p>
+      <div style={{ width: 24, height: 24 }}></div>
+      <p style={{ color: themeColor }}>{page.title}</p>
+      <ArrowRightCircle color={themeColor} size={24} />
     </button>
   );
 };

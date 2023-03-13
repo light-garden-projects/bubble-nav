@@ -4,6 +4,7 @@ import {
   getCurrentPage,
   getParent,
   getSiblings,
+  getTheme,
 } from "../modules/parse-objects";
 import { getCirclePoints } from "../modules/points-on-circle";
 import { Page, Point } from "../types/types";
@@ -197,7 +198,7 @@ export const BubbleNav = ({
                 r={circle1Radius}
                 onClick={() => onBubbleClick(page.url)}
                 selected={page.url === currentUrl}
-                stroke={"rgba(4,100,128, 1)"}
+                stroke={getTheme(page).color}
               />
               {isSelected && SHOW_CIRCLES_RIGHT && (
                 <>
@@ -235,17 +236,19 @@ export const BubbleNav = ({
           />
         )}
       </svg>
-      {circle2.map((x, i) => {
-        return (
-          <ChildCard
-            key={i}
-            page={x.page}
-            onClick={() => {
-              onBubbleClick(x.page.url);
-            }}
-          />
-        );
-      })}
+      <div style={{ marginTop: 30 }}>
+        {circle2.map((x, i) => {
+          return (
+            <ChildCard
+              key={i}
+              page={x.page}
+              onClick={() => {
+                onBubbleClick(x.page.url);
+              }}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };
