@@ -160,7 +160,6 @@ export const BubbleNav = ({
   const centerCircle: CirclePoint | null = useMemo(() => {
     if (currentPage && currentPage.url === siteMap.url) {
       const p = { page: currentPage, point: center, id: currentPage.url };
-      console.log("center circle", p);
 
       return p;
     } else {
@@ -185,8 +184,6 @@ export const BubbleNav = ({
     // Reverse the array so that the root page is first
     return ancestors.reverse();
   }, [parentPage]);
-
-  console.log("ancestor pages", ancestorPages);
 
   if (!currentPage) {
     return null;
