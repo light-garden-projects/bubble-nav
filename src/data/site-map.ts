@@ -4,19 +4,18 @@ export const siteMap: Page = {
   title: "Dreams 2020",
   titleLine1: "Dreams 2020",
   url: "https://scalar.usc.edu/works/2020-dreams/contents",
-  isHomePage: true,
+  backgroundImage: "/media/cover-min-square.png",
+  theme: "#046480",
   children: [
     {
       title: "Introduction",
       titleLine1: "Introduction",
       url: "https://scalar.usc.edu/works/2020-dreams/introduction",
       backgroundImage: "/media/introduction-min.png",
-      theme: "#D1B099",
+      theme: "#C4A48D",
       children: [
         {
           title: "What are The 2020 Dreams?",
-          titleLine1: "What are the",
-          titleLine2: "2020 Dreams?",
           url: "https://scalar.usc.edu/works/2020-dreams/what-are-the-2020-dreams",
           children: [
             {

@@ -5,7 +5,7 @@ import {
 } from "./bubble-nav";
 
 type DefsProps = {
-  circle1: CirclePoint[];
+  circles: CirclePoint[];
   currentUrl: string;
   isRootPage: boolean;
   circleRadius: number;
@@ -14,14 +14,14 @@ type DefsProps = {
 // SVG defs are used to define reusable elements
 // This is where we put the background images for the circles
 export const Defs = ({
-  circle1,
+  circles,
   currentUrl,
   isRootPage,
   circleRadius,
 }: DefsProps) => {
   return (
     <defs>
-      {circle1
+      {circles
         .filter((circle) => circle.page.backgroundImage)
         .map((circle) => {
           const isSelected = circle.page.url === currentUrl;

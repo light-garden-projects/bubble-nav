@@ -65,7 +65,6 @@ export const BubbleNav = ({
   }, [navWidth, siblingPages]);
 
   const ring1Radius = useMemo(() => {
-    console.log(siblingPages.length);
     const padding =
       siblingPages.length === 2 || siblingPages.length === 4 ? 1.1 : 0.8;
     return navWidth / 2 - 2 * circle1Radius * padding;
@@ -157,13 +156,19 @@ export const BubbleNav = ({
   //////////// CENTER CIRCLE ////////////
   // If the current page is the root page, the center circle is the root page
   // Else, the center circle is the parent page
-  const centerCircle = useMemo(() => {
+  const centerCircle: CirclePoint | null = useMemo(() => {
     if (currentPage && currentPage.url === siteMap.url) {
-      return currentPage;
+      const p = { page: currentPage, point: center, id: currentPage.url };
+      console.log("center circle", p);
+
+      return p;
     } else {
-      return getParent(currentPage);
+      const parentPage = getParent(currentPage);
+      return parentPage
+        ? { page: parentPage, point: center, id: parentPage?.url }
+        : null;
     }
-  }, [currentPage, siteMap]);
+  }, [currentPage, siteMap, center]);
 
   if (!currentPage) {
     return null;
@@ -183,7 +188,7 @@ export const BubbleNav = ({
         <Defs
           circleRadius={circle1Radius}
           currentUrl={currentUrl}
-          circle1={circle1}
+          circles={centerCircle ? [...circle1, centerCircle] : [...circle1]}
           isRootPage={isRootPage}
         />
         {circle1.map((circle, i) => {
@@ -228,14 +233,18 @@ export const BubbleNav = ({
         {/* Central circle */}
         {centerCircle && (
           <Bubble
-            key={centerCircle.url}
-            page={centerCircle}
-            startPoint={center}
+            key={centerCircle.page.url}
+            page={centerCircle.page}
+            startPoint={centerCircle.point}
             endPoint={center}
             r={circle1Radius}
-            onClick={() => onBubbleClick(centerCircle.url)}
-            stroke={"rgba(4,100,128, 1)"}
-            selected={centerCircle.url === currentUrl}
+            onClick={() => onBubbleClick(centerCircle.page.url)}
+            stroke={getTheme(currentPage).color}
+            selected={centerCircle.page.url === currentUrl}
+            fill={shadeHexColor(
+              getTheme(currentPage).color,
+              getTheme(currentPage).level * 0.3
+            )}
           />
         )}
       </svg>
