@@ -1,20 +1,30 @@
 import { getTheme } from "../modules/parse-objects";
 import { Page } from "../types/types";
-import { AngleRight } from "./icons";
+import { AngleLeft, AngleRight } from "./icons";
 
 type ChildCardProps = {
   page: Page;
   onClick: (url: string) => void;
+  themeOverride?: string;
+  type?: "parent" | "child";
 };
 
-export const ChildCard = ({ page, onClick }: ChildCardProps) => {
+export const ParentOrChildCard = ({
+  page,
+  themeOverride,
+  onClick,
+  type = "child",
+}: ChildCardProps) => {
   const theme = getTheme(page);
-  const { color: themeColor } = theme;
+  const { color } = theme;
+  const themeColor = themeOverride ? themeOverride : color;
+
   return (
     <button
       onClick={() => {
         onClick(page.url);
       }}
+      className="child-card__button"
       style={{
         width: "80%",
         marginLeft: "auto",
@@ -28,9 +38,11 @@ export const ChildCard = ({ page, onClick }: ChildCardProps) => {
         alignItems: "center",
       }}
     >
-      <div style={{ width: 18, height: 18 }}></div>
+      {type === "parent" && <AngleLeft color={"white"} size={16} />}
+      {type === "child" && <div style={{ width: 16, height: 16 }} />}
       <p className="child-card__page-label">{page.title}</p>
-      <AngleRight color={"white"} size={18} />
+      {type === "child" && <AngleRight color={"white"} size={16} />}
+      {type === "parent" && <div style={{ width: 16, height: 16 }} />}
     </button>
   );
 };

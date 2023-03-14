@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div className="App">
-      <p>{currentUrl}</p>
+      <p style={{ marginBottom: 100 }}>{currentUrl}</p>
       <BubbleNav
         siteMap={sitemapWithParents}
         currentUrl={currentUrl}

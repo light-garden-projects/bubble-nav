@@ -58,6 +58,18 @@ export const getParent = function (
   }
 };
 
+// Get all the ancestors of the current page
+export const getAncestors = function (currentPage: Page | undefined): Page[] {
+  if (currentPage === undefined) return [];
+  if (currentPage.parentPage === undefined) {
+    return [];
+  } else {
+    const parentPage = currentPage.parentPage;
+    const ancestors = getAncestors(parentPage);
+    return [parentPage, ...ancestors];
+  }
+};
+
 export const getTheme = function (
   currentPage: Page | undefined,
   startIndex = 0

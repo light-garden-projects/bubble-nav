@@ -6,4 +6,9 @@ p.child-card__page-label {
   font-size: 0.9rem;
   font-weight: 400;
   color: white;
+  margin: 0;
+}
+
+button.child-card__button {
+  padding: 10px 10px;
 }

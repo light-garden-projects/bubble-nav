@@ -1,6 +1,7 @@
 import { useMemo, useRef } from "react";
 import useComponentSize from "@rehooks/component-size";
 import {
+  getAncestors,
   getCurrentPage,
   getParent,
   getSiblings,
@@ -11,7 +12,7 @@ import { getCirclePoints } from "../modules/points-on-circle";
 import { Page, Point } from "../types/types";
 import { Bubble } from "./bubble";
 import { Defs } from "./defs";
-import { ChildCard } from "./child-card";
+import { ParentOrChildCard } from "./child-card";
 
 export type CirclePoint = {
   point: Point;
@@ -170,6 +171,23 @@ export const BubbleNav = ({
     }
   }, [currentPage, siteMap, center]);
 
+  const parentPage: Page | undefined = useMemo(() => {
+    if (currentPage && currentPage.url === siteMap.url) {
+      return undefined;
+    } else {
+      const parentPage = getParent(currentPage);
+      return parentPage;
+    }
+  }, [currentPage, siteMap]);
+
+  const ancestorPages: Page[] = useMemo(() => {
+    const ancestors = getAncestors(parentPage);
+    // Reverse the array so that the root page is first
+    return ancestors.reverse();
+  }, [parentPage]);
+
+  console.log("ancestor pages", ancestorPages);
+
   if (!currentPage) {
     return null;
   }
@@ -184,6 +202,19 @@ export const BubbleNav = ({
         margin: "auto",
       }}
     >
+      <div style={{ marginBottom: 30 }}>
+        {ancestorPages.map((page, i) => {
+          return (
+            <ParentOrChildCard
+              key={i}
+              page={page}
+              onClick={() => onBubbleClick(page.url)}
+              themeOverride={getTheme(currentPage).color}
+              type={"parent"}
+            />
+          );
+        })}
+      </div>
       <svg width={navWidth} height={height}>
         <Defs
           circleRadius={circle1Radius}
@@ -205,8 +236,8 @@ export const BubbleNav = ({
                 r={circle1Radius}
                 onClick={() => onBubbleClick(page.url)}
                 selected={page.url === currentUrl}
-                stroke={getTheme(page).color}
-                fill={shadeHexColor(themeColor, 0.3 * level)}
+                stroke={shadeHexColor(getTheme(page).color, -0.1)}
+                fill={shadeHexColor(themeColor, 0.25 * level)}
               />
               {isSelected && SHOW_CIRCLES_RIGHT && (
                 <>
@@ -243,7 +274,7 @@ export const BubbleNav = ({
             selected={centerCircle.page.url === currentUrl}
             fill={shadeHexColor(
               getTheme(currentPage).color,
-              getTheme(currentPage).level * 0.3
+              getTheme(currentPage).level * 0.25
             )}
           />
         )}
@@ -251,7 +282,7 @@ export const BubbleNav = ({
       <div style={{ marginTop: 30 }}>
         {circle2.map((x, i) => {
           return (
-            <ChildCard
+            <ParentOrChildCard
               key={i}
               page={x.page}
               onClick={() => {
