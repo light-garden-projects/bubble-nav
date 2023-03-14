@@ -231,8 +231,8 @@ export const siteMap: Page = {
         },
         {
           title: "Amplified experience of immersive technologies",
-          titleLine1: "Amplified experience",
-          titleLine2: "of immersive technologies",
+          titleLine1: "Amplified experience of",
+          titleLine2: "immersive technologies",
           url: "https://scalar.usc.edu/works/2020-dreams/amplified-experience-of-immersive-technologies",
           children: [],
         },
