@@ -14,7 +14,7 @@ function App() {
   const sitemapWithParents = setParents(mySiteMap);
 
   return (
-    <div className="App">
+    <div className="App" style={{ marginBottom: 50 }}>
       <p style={{ marginBottom: 100 }}>{currentUrl}</p>
       <BubbleNav
         siteMap={sitemapWithParents}
