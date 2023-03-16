@@ -31,8 +31,6 @@ export const SELECTED_CIRCLE_MULTIPLIER = 1.1;
 export const UNSELECTED_CIRCLE_MULTIPLIER = 0.9;
 const SHOW_CIRCLES_RIGHT = false;
 
-const MAX_WIDTH = 400;
-
 export const BubbleNav = ({
   siteMap,
   currentUrl,
@@ -194,7 +192,7 @@ export const BubbleNav = ({
       key={currentUrl}
       ref={visRef}
       style={{
-        maxWidth: MAX_WIDTH,
+        maxWidth: maxWidth,
         height: height,
         margin: "auto",
       }}
