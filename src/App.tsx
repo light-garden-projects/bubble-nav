@@ -19,7 +19,7 @@ function App({ siteMap, width = 350, theme }: AppProps) {
   const sitemapWithParents = setParents(mySiteMap);
 
   return (
-    <div className="App" style={{ marginBottom: 50 }}>
+    <div className="App" style={{ width: width }}>
       <BubbleNav
         siteMap={sitemapWithParents}
         currentUrl={currentUrl}
