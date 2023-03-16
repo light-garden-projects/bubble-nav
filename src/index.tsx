@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { Page } from "./types/types";
 
 declare global {
   interface Window {
@@ -10,17 +11,23 @@ declare global {
   }
 }
 
+export type BubbleNavOpts = {
+  siteMap?: Page;
+  width?: number;
+};
+
 window.embedBubbleNav = function (
   elementId: keyof HTMLElementTagNameMap,
-  opts: any
+  opts: BubbleNavOpts = {}
 ) {
   // const params = qs.parse(window.location.search.slice(1));
+  const { siteMap, width } = opts;
 
   const el = document.querySelector(elementId);
   const render = () =>
     ReactDOM.render(
       <React.StrictMode>
-        <App />
+        <App siteMap={siteMap} width={width} />
       </React.StrictMode>,
       el
     );

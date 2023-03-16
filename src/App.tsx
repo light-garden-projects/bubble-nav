@@ -1,13 +1,12 @@
 import "./App.css";
 import { useState } from "react";
-import { siteMap } from "./data/site-map";
+import { siteMap as defaultSiteMap } from "./data/site-map";
 import { BubbleNav } from "./components/bubble-nav";
 import { setParents } from "./modules/parse-objects";
+import { BubbleNavOpts } from "./index";
 
-const navWidth = 400;
-
-function App() {
-  const mySiteMap = siteMap;
+function App({ siteMap, width = 400 }: BubbleNavOpts) {
+  const mySiteMap = siteMap || defaultSiteMap;
   const [currentUrl, setCurrentUrl] = useState(mySiteMap.url);
 
   // Make sure the parent property is set for each page
@@ -19,7 +18,7 @@ function App() {
       <BubbleNav
         siteMap={sitemapWithParents}
         currentUrl={currentUrl}
-        maxWidth={navWidth}
+        maxWidth={width}
         onBubbleClick={(url) => {
           setCurrentUrl(url);
         }}
