@@ -5,7 +5,7 @@ export const siteMap: Page = {
   titleLine1: "Dreams 2020",
   url: "https://scalar.usc.edu/works/2020-dreams/contents",
   backgroundImage:
-    "https://scalar.usc.edu/works/2020-dreams/media/cover-min-square.png",
+    "https://scalar.usc.edu/works/2020-dreams/media/cover-min-square-circle.png",
   theme: "#046480",
   children: [
     {
@@ -13,7 +13,7 @@ export const siteMap: Page = {
       titleLine1: "Introduction",
       url: "https://scalar.usc.edu/works/2020-dreams/introduction",
       backgroundImage:
-        "https://scalar.usc.edu/works/2020-dreams/media/introduction-min.png",
+        "https://scalar.usc.edu/works/2020-dreams/media/introduction-min-circle.png",
       theme: "#C4A48D",
       children: [
         {
@@ -116,7 +116,7 @@ export const siteMap: Page = {
       title: "Continuities",
       url: "https://scalar.usc.edu/works/2020-dreams/continuities",
       backgroundImage:
-        "https://scalar.usc.edu/works/2020-dreams/media/continuities-min.png",
+        "https://scalar.usc.edu/works/2020-dreams/media/continuities-min-circle.png",
       theme: "#386F68",
       children: [
         {
@@ -160,7 +160,7 @@ export const siteMap: Page = {
       title: "Reflections",
       url: "https://scalar.usc.edu/works/2020-dreams/reflections",
       backgroundImage:
-        "https://scalar.usc.edu/works/2020-dreams/media/reflections-min.png",
+        "https://scalar.usc.edu/works/2020-dreams/media/reflections-min-circle.png",
       theme: "#A9440F",
       children: [
         {
@@ -190,7 +190,7 @@ export const siteMap: Page = {
       title: "Methodology",
       url: "https://scalar.usc.edu/works/2020-dreams/methodology",
       backgroundImage:
-        "https://scalar.usc.edu/works/2020-dreams/media/methodology-min.png",
+        "https://scalar.usc.edu/works/2020-dreams/media/methodology-min-circle.png",
       theme: "#A87938",
       children: [
         {
@@ -225,7 +225,7 @@ export const siteMap: Page = {
       title: "Conclusions",
       url: "https://scalar.usc.edu/works/2020-dreams/conclusions",
       backgroundImage:
-        "https://scalar.usc.edu/works/2020-dreams/media/conclusions-min.png",
+        "https://scalar.usc.edu/works/2020-dreams/media/conclusions-min-circle.png",
       theme: "#5E938F",
       children: [
         {
@@ -255,7 +255,7 @@ export const siteMap: Page = {
       title: "Works Cited",
       url: "https://scalar.usc.edu/works/2020-dreams/works-cited",
       backgroundImage:
-        "https://scalar.usc.edu/works/2020-dreams/media/works_cited-min.png",
+        "https://scalar.usc.edu/works/2020-dreams/media/works_cited-min-circle.png",
       theme: "#353732",
       children: [],
     },
@@ -263,7 +263,7 @@ export const siteMap: Page = {
       title: "Appendices",
       url: "https://scalar.usc.edu/works/2020-dreams/appendices-and-repositories",
       backgroundImage:
-        "https://scalar.usc.edu/works/2020-dreams/media/appendices_and_repositories-min.png",
+        "https://scalar.usc.edu/works/2020-dreams/media/appendices_and_repositories-min-circle.png",
       theme: "#7D766E",
       children: [
         {
