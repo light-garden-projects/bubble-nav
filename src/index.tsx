@@ -22,6 +22,8 @@ window.embedBubbleNav = function (
 ) {
   // const params = qs.parse(window.location.search.slice(1));
   const { siteMap, width } = opts;
+  console.log("width", width);
+  console.log("siteMap", siteMap);
 
   const el = document.querySelector(elementId);
   const render = () =>
