@@ -19,6 +19,7 @@ type BubbleProps = {
   onMouseOut?: () => void;
   selected?: boolean;
   fontSize?: number;
+  showText?: boolean;
 };
 
 export const Bubble = ({
@@ -35,6 +36,7 @@ export const Bubble = ({
   onClick,
   selected,
   fontSize = 12,
+  showText = true,
 }: BubbleProps) => {
   const [startX, startY] = startPoint;
   const [endX, endY] = endPoint;
@@ -65,49 +67,51 @@ export const Bubble = ({
 
   return (
     <>
-      {/* <a href={page.url}> */}
-      <animated.circle
-        {...moveIntoPlaceCircleSpring}
-        r={radius}
-        stroke={stroke}
-        strokeWidth={selected ? strokeWidth + 5 : strokeWidth}
-        fill={page.backgroundImage ? `url(#${page.backgroundImage})` : fill}
-        opacity={opacity}
-        onMouseOver={onMouseOver}
-        onMouseOut={onMouseOut}
-        style={{ cursor: "pointer" }}
-        onClick={onClick}
-        tabIndex={1}
-      />
-      {/* </a> */}
-      {/* <a href={page.url}> */}
-      <animated.text
-        {...moveIntoPlaceText1Spring}
-        textAnchor="middle"
-        alignmentBaseline="middle"
-        fill="black"
-        fontSize={fontSize}
-        fontWeight={selected ? "bold" : "normal"}
-        style={{ cursor: "pointer" }}
-        onClick={onClick}
-      >
-        {page.titleLine1 || page.title}
-      </animated.text>
-      {page.titleLine2 && (
-        <animated.text
-          {...moveIntoPlaceText2Spring}
-          textAnchor="middle"
-          alignmentBaseline="middle"
-          fill="black"
-          fontSize={fontSize}
-          fontWeight={selected ? "bold" : "normal"}
+      <a href={page.url}>
+        <animated.circle
+          {...moveIntoPlaceCircleSpring}
+          r={radius}
+          stroke={stroke}
+          strokeWidth={selected ? strokeWidth + 5 : strokeWidth}
+          fill={page.backgroundImage ? `url(#${page.backgroundImage})` : fill}
+          opacity={opacity}
+          onMouseOver={onMouseOver}
+          onMouseOut={onMouseOut}
           style={{ cursor: "pointer" }}
           onClick={onClick}
-        >
-          {page.titleLine2}
-        </animated.text>
+          // tabIndex={1}
+        />
+      </a>
+      {showText && (
+        <a href={page.url}>
+          <animated.text
+            {...moveIntoPlaceText1Spring}
+            textAnchor="middle"
+            alignmentBaseline="middle"
+            fill="black"
+            fontSize={fontSize}
+            fontWeight={selected ? "bold" : "normal"}
+            style={{ cursor: "pointer" }}
+            onClick={onClick}
+          >
+            {page.titleLine1 || page.title}
+          </animated.text>
+          {page.titleLine2 && (
+            <animated.text
+              {...moveIntoPlaceText2Spring}
+              textAnchor="middle"
+              alignmentBaseline="middle"
+              fill="black"
+              fontSize={fontSize}
+              fontWeight={selected ? "bold" : "normal"}
+              style={{ cursor: "pointer" }}
+              onClick={onClick}
+            >
+              {page.titleLine2}
+            </animated.text>
+          )}
+        </a>
       )}
-      {/* </a> */}
     </>
   );
 };

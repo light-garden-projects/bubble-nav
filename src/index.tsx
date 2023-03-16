@@ -11,9 +11,14 @@ declare global {
   }
 }
 
+export type Theme = {
+  primaryColor: string;
+};
+
 export type BubbleNavOpts = {
   siteMap?: Page;
   width?: number;
+  theme?: Theme;
 };
 
 window.embedBubbleNav = function (
@@ -21,15 +26,19 @@ window.embedBubbleNav = function (
   opts: BubbleNavOpts = {}
 ) {
   // const params = qs.parse(window.location.search.slice(1));
-  const { siteMap, width } = opts;
+  const { siteMap, width, theme } = opts;
   console.log("width", width);
   console.log("siteMap", siteMap);
+
+  const navTheme = theme || {
+    primaryColor: "rgba(4,100,128, 1)",
+  };
 
   const el = document.querySelector(elementId);
   const render = () =>
     ReactDOM.render(
       <React.StrictMode>
-        <App siteMap={siteMap} width={width} />
+        <App siteMap={siteMap} width={width} theme={navTheme} />
       </React.StrictMode>,
       el
     );

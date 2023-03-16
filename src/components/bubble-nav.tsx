@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import useComponentSize from "@rehooks/component-size";
 import {
   getAncestors,
@@ -13,6 +13,8 @@ import { Page, Point } from "../types/types";
 import { Bubble } from "./bubble";
 import { Defs } from "./defs";
 import { ParentOrChildCard } from "./child-card";
+import { Theme } from "../index";
+import { Compass } from "./icons";
 
 export type CirclePoint = {
   point: Point;
@@ -25,6 +27,7 @@ type BubbleNavProps = {
   currentUrl: string;
   maxWidth: number;
   onBubbleClick: (url: string) => void;
+  theme: Theme;
 };
 
 export const SELECTED_CIRCLE_MULTIPLIER = 1.1;
@@ -35,8 +38,11 @@ export const BubbleNav = ({
   siteMap,
   currentUrl,
   maxWidth,
+  theme,
   onBubbleClick,
 }: BubbleNavProps) => {
+  const [open, setOpen] = useState(false);
+
   // Keep track of width of vis
   let visRef = useRef(null);
   let { width: fullGraphWidth } = useComponentSize(visRef);
@@ -66,7 +72,8 @@ export const BubbleNav = ({
   const ring1Radius = useMemo(() => {
     const padding =
       siblingPages.length === 2 || siblingPages.length === 4 ? 1.1 : 0.8;
-    return navWidth / 2 - 2 * circle1Radius * padding;
+    const multiplier = siblingPages.length >= 10 ? 2.5 : 2;
+    return navWidth / 2 - multiplier * circle1Radius * padding;
   }, [navWidth, circle1Radius, siblingPages]);
 
   const ring2Radius = ring1Radius * 2;
@@ -216,46 +223,48 @@ export const BubbleNav = ({
           currentUrl={currentUrl}
           circles={centerCircle ? [...circle1, centerCircle] : [...circle1]}
           isRootPage={isRootPage}
+          isOpen={open}
         />
-        {circle1.map((circle, i) => {
-          const { page, point: circle1end } = circle;
-          const isSelected = page.url === currentUrl;
-          const { color: themeColor, level } = getTheme(page);
-          return (
-            <g key={i}>
-              <Bubble
-                key={page.url}
-                page={page}
-                startPoint={center}
-                endPoint={circle1end}
-                r={circle1Radius}
-                onClick={() => onBubbleClick(page.url)}
-                selected={page.url === currentUrl}
-                stroke={shadeHexColor(getTheme(page).color, -0.1)}
-                fill={shadeHexColor(themeColor, 0.25 * level)}
-              />
-              {isSelected && SHOW_CIRCLES_RIGHT && (
-                <>
-                  {circle2.map((circle, i) => {
-                    const { page, id, point: circle2end } = circle;
-                    return (
-                      <Bubble
-                        key={id}
-                        page={page}
-                        startPoint={circle1end}
-                        endPoint={circle2end}
-                        r={20}
-                        onClick={() => onBubbleClick(page.url)}
-                        selected={page.url === currentUrl}
-                        stroke={"rgba(4,100,128, 1)"}
-                      />
-                    );
-                  })}
-                </>
-              )}
-            </g>
-          );
-        })}
+        {open &&
+          circle1.map((circle, i) => {
+            const { page, point: circle1end } = circle;
+            const isSelected = page.url === currentUrl;
+            const { color: themeColor, level } = getTheme(page);
+            return (
+              <g key={i}>
+                <Bubble
+                  key={page.url}
+                  page={page}
+                  startPoint={center}
+                  endPoint={circle1end}
+                  r={circle1Radius}
+                  onClick={() => onBubbleClick(page.url)}
+                  selected={page.url === currentUrl}
+                  stroke={shadeHexColor(getTheme(page).color, -0.1)}
+                  fill={shadeHexColor(themeColor, 0.25 * level)}
+                />
+                {isSelected && SHOW_CIRCLES_RIGHT && (
+                  <>
+                    {circle2.map((circle, i) => {
+                      const { page, id, point: circle2end } = circle;
+                      return (
+                        <Bubble
+                          key={id}
+                          page={page}
+                          startPoint={circle1end}
+                          endPoint={circle2end}
+                          r={20}
+                          onClick={() => onBubbleClick(page.url)}
+                          selected={page.url === currentUrl}
+                          stroke={"rgba(4,100,128, 1)"}
+                        />
+                      );
+                    })}
+                  </>
+                )}
+              </g>
+            );
+          })}
         {/* Central circle */}
         {centerCircle && (
           <Bubble
@@ -264,13 +273,30 @@ export const BubbleNav = ({
             startPoint={centerCircle.point}
             endPoint={center}
             r={circle1Radius}
-            onClick={() => onBubbleClick(centerCircle.page.url)}
+            onClick={() => {
+              onBubbleClick(centerCircle.page.url);
+              if (isRootPage && open) {
+                setOpen(false);
+              } else {
+                setOpen(true);
+              }
+            }}
             stroke={getTheme(currentPage).color}
             selected={centerCircle.page.url === currentUrl}
             fill={shadeHexColor(
               getTheme(currentPage).color,
               getTheme(currentPage).level * 0.25
             )}
+            showText={open}
+          />
+        )}
+        {!open && (
+          <Compass
+            color={theme.primaryColor}
+            size={50}
+            onClick={() => setOpen(true)}
+            x={center[0] - 25}
+            y={center[1] - 25}
           />
         )}
       </svg>

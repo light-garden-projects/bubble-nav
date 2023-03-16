@@ -9,6 +9,7 @@ type DefsProps = {
   currentUrl: string;
   isRootPage: boolean;
   circleRadius: number;
+  isOpen: boolean;
 };
 
 // SVG defs are used to define reusable elements

@@ -3,9 +3,15 @@ import { useState } from "react";
 import { siteMap as defaultSiteMap } from "./data/site-map";
 import { BubbleNav } from "./components/bubble-nav";
 import { setParents } from "./modules/parse-objects";
-import { BubbleNavOpts } from "./index";
+import { BubbleNavOpts, Theme } from "./index";
 
-function App({ siteMap, width = 400 }: BubbleNavOpts) {
+type AppProps = {
+  siteMap: BubbleNavOpts["siteMap"];
+  width: BubbleNavOpts["width"];
+  theme: Theme;
+};
+
+function App({ siteMap, width = 350, theme }: AppProps) {
   const mySiteMap = siteMap || defaultSiteMap;
   const [currentUrl, setCurrentUrl] = useState(mySiteMap.url);
 
@@ -14,7 +20,6 @@ function App({ siteMap, width = 400 }: BubbleNavOpts) {
 
   return (
     <div className="App" style={{ marginBottom: 50 }}>
-      <p style={{ marginBottom: 100 }}>{currentUrl}</p>
       <BubbleNav
         siteMap={sitemapWithParents}
         currentUrl={currentUrl}
@@ -22,6 +27,7 @@ function App({ siteMap, width = 400 }: BubbleNavOpts) {
         onBubbleClick={(url) => {
           setCurrentUrl(url);
         }}
+        theme={theme}
       />
     </div>
   );

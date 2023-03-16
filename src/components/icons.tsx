@@ -1,6 +1,9 @@
 type IconProps = {
   color?: string;
   size?: number;
+  onClick?: () => void;
+  x?: number;
+  y?: number;
 };
 
 export const ArrowRightCircle = ({ color, size = 24 }: IconProps) => {
@@ -41,6 +44,33 @@ export const AngleLeft = ({ color, size = 24 }: IconProps) => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+    </svg>
+  );
+};
+
+export const Compass = ({
+  color,
+  size = 24,
+  onClick,
+  x = 50,
+  y = 50,
+}: IconProps) => {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 512 512"
+      fill={color || "currentColor"}
+      xmlns="http://://www.w3.org/2000/svg"
+      onClick={onClick}
+      style={{ cursor: "pointer" }}
+      x={x}
+      y={y}
+    >
+      <path
+        fill={color || "currentColor"}
+        d="M464 256a208 208 0 1 0-416 0 208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0 256 256 0 1 1-512 0zm306.7 69.1-144.3 55.5c-19.4 7.5-38.5-11.6-31-31l55.5-144.3c3.3-8.5 9.9-15.1 18.4-18.4l144.3-55.5c19.4-7.5 38.5 11.6 31 31l-55.5 144.3c-3.2 8.5-9.9 15.1-18.4 18.4zM288 256a32 32 0 1 0-64 0 32 32 0 1 0 64 0z"
+      />
     </svg>
   );
 };
