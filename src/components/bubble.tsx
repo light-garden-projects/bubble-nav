@@ -35,7 +35,7 @@ export const Bubble = ({
   opacity,
   onClick,
   selected,
-  fontSize = 12,
+  fontSize = 10,
   showText = true,
 }: BubbleProps) => {
   const [startX, startY] = startPoint;

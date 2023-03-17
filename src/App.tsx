@@ -9,9 +9,10 @@ type AppProps = {
   siteMap: BubbleNavOpts["siteMap"];
   width: BubbleNavOpts["width"];
   theme: Theme;
+  showChildren: boolean;
 };
 
-function App({ siteMap, width = 350, theme }: AppProps) {
+function App({ siteMap, width = 300, theme, showChildren }: AppProps) {
   const mySiteMap = siteMap || defaultSiteMap;
   const [currentUrl, setCurrentUrl] = useState(mySiteMap.url);
 
@@ -28,6 +29,7 @@ function App({ siteMap, width = 350, theme }: AppProps) {
           setCurrentUrl(url);
         }}
         theme={theme}
+        showChildren={showChildren}
       />
     </div>
   );

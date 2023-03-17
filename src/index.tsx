@@ -19,6 +19,7 @@ export type BubbleNavOpts = {
   siteMap?: Page;
   width?: number;
   theme?: Theme;
+  showChildren?: boolean;
 };
 
 window.embedBubbleNav = function (
@@ -26,7 +27,7 @@ window.embedBubbleNav = function (
   opts: BubbleNavOpts = {}
 ) {
   // const params = qs.parse(window.location.search.slice(1));
-  const { siteMap, width, theme } = opts;
+  const { siteMap, width, theme, showChildren } = opts;
   console.log("width", width);
   console.log("siteMap", siteMap);
 
@@ -38,7 +39,12 @@ window.embedBubbleNav = function (
   const render = () =>
     ReactDOM.render(
       <React.StrictMode>
-        <App siteMap={siteMap} width={width} theme={navTheme} />
+        <App
+          siteMap={siteMap}
+          width={width}
+          theme={navTheme}
+          showChildren={Boolean(showChildren)}
+        />
       </React.StrictMode>,
       el
     );

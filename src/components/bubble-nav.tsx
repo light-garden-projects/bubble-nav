@@ -28,6 +28,7 @@ type BubbleNavProps = {
   maxWidth: number;
   onBubbleClick: (url: string) => void;
   theme: Theme;
+  showChildren: boolean;
 };
 
 export const SELECTED_CIRCLE_MULTIPLIER = 1.1;
@@ -40,6 +41,7 @@ export const BubbleNav = ({
   maxWidth,
   theme,
   onBubbleClick,
+  showChildren,
 }: BubbleNavProps) => {
   const [open, setOpen] = useState(false);
 
@@ -300,19 +302,21 @@ export const BubbleNav = ({
           />
         )}
       </svg>
-      <div style={{ marginTop: 30 }}>
-        {circle2.map((x, i) => {
-          return (
-            <ParentOrChildCard
-              key={i}
-              page={x.page}
-              onClick={() => {
-                onBubbleClick(x.page.url);
-              }}
-            />
-          );
-        })}
-      </div>
+      {showChildren && (
+        <div style={{ marginTop: 30 }}>
+          {circle2.map((x, i) => {
+            return (
+              <ParentOrChildCard
+                key={i}
+                page={x.page}
+                onClick={() => {
+                  onBubbleClick(x.page.url);
+                }}
+              />
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };
