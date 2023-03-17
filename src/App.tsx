@@ -15,6 +15,7 @@ type AppProps = {
 function App({ siteMap, width = 300, theme, showChildren }: AppProps) {
   // Detect the current page from the url
   const currentUrl = window.location.pathname;
+  console.log("currentUrl is:", currentUrl);
 
   const mySiteMap = siteMap || defaultSiteMap;
 
