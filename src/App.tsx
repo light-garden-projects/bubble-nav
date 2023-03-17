@@ -13,8 +13,10 @@ type AppProps = {
 };
 
 function App({ siteMap, width = 300, theme, showChildren }: AppProps) {
+  // Detect the current page from the url
+  const currentUrl = window.location.pathname;
+
   const mySiteMap = siteMap || defaultSiteMap;
-  const [currentUrl, setCurrentUrl] = useState(mySiteMap.url);
 
   // Make sure the parent property is set for each page
   const sitemapWithParents = setParents(mySiteMap);
@@ -26,7 +28,8 @@ function App({ siteMap, width = 300, theme, showChildren }: AppProps) {
         currentUrl={currentUrl}
         maxWidth={width}
         onBubbleClick={(url) => {
-          setCurrentUrl(url);
+          // setCurrentUrl(url);
+          console.log("Going to url", url);
         }}
         theme={theme}
         showChildren={showChildren}
