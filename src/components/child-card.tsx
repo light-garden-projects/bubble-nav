@@ -20,10 +20,8 @@ export const ParentOrChildCard = ({
   const themeColor = themeOverride ? themeOverride : color;
 
   return (
-    <button
-      onClick={() => {
-        onClick(page.url);
-      }}
+    <a
+      href={page.url}
       className="child-card__button"
       style={{
         width: "80%",
@@ -36,13 +34,24 @@ export const ParentOrChildCard = ({
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        padding: 10,
+        boxSizing: "border-box",
+        textDecoration: "none",
+        color: "white",
       }}
     >
       {type === "parent" && <AngleLeft color={"white"} size={16} />}
       {type === "child" && <div style={{ width: 16, height: 16 }} />}
-      <p className="child-card__page-label">{page.title}</p>
+      <span
+        style={{
+          display: "block",
+        }}
+        className="child-card__page-label"
+      >
+        {page.title}
+      </span>
       {type === "child" && <AngleRight color={"white"} size={16} />}
       {type === "parent" && <div style={{ width: 16, height: 16 }} />}
-    </button>
+    </a>
   );
 };
