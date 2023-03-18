@@ -322,6 +322,7 @@ export const BubbleNav = ({
             position: "absolute",
             top: 55,
             left: navWidth + 17,
+            color: "rgba(251,248,253, 1)",
           }}
           onClick={() => setOpen(true)}
         >
