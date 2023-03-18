@@ -295,15 +295,6 @@ export const BubbleNav = ({
             showText={open}
           />
         )}
-        {!open && (
-          <Compass
-            color={theme.primaryColor}
-            size={30}
-            onClick={() => setOpen(true)}
-            x={navWidth - 30}
-            y={30}
-          />
-        )}
       </svg>
       {showChildren && open && (
         <div style={{ marginTop: 30 }}>
@@ -319,6 +310,27 @@ export const BubbleNav = ({
             );
           })}
         </div>
+      )}
+      {!open && (
+        <button
+          style={{
+            background: "none",
+            border: "none",
+            outline: "none",
+            cursor: "pointer",
+            position: "absolute",
+            top: 30,
+            left: navWidth - 60,
+          }}
+        >
+          <Compass
+            color={theme.primaryColor}
+            size={30}
+            onClick={() => setOpen(true)}
+            // x={navWidth - 60}
+            // y={30}
+          />
+        </button>
       )}
     </div>
   );
