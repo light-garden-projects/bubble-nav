@@ -206,19 +206,22 @@ export const BubbleNav = ({
         margin: "auto",
       }}
     >
-      <div style={{ marginBottom: 30 }}>
-        {ancestorPages.map((page, i) => {
-          return (
-            <ParentOrChildCard
-              key={i}
-              page={page}
-              onClick={() => onBubbleClick(page.url)}
-              themeOverride={getTheme(currentPage).color}
-              type={"parent"}
-            />
-          );
-        })}
-      </div>
+      {open && (
+        <div style={{ marginBottom: 30 }}>
+          {ancestorPages.map((page, i) => {
+            return (
+              <ParentOrChildCard
+                key={i}
+                page={page}
+                onClick={() => onBubbleClick(page.url)}
+                themeOverride={getTheme(currentPage).color}
+                type={"parent"}
+              />
+            );
+          })}
+        </div>
+      )}
+
       <svg width={navWidth} height={height}>
         <Defs
           circleRadius={circle1Radius}
@@ -268,7 +271,7 @@ export const BubbleNav = ({
             );
           })}
         {/* Central circle */}
-        {centerCircle && (
+        {centerCircle && open && (
           <Bubble
             key={centerCircle.page.url}
             page={centerCircle.page}
@@ -295,14 +298,14 @@ export const BubbleNav = ({
         {!open && (
           <Compass
             color={theme.primaryColor}
-            size={50}
+            size={30}
             onClick={() => setOpen(true)}
-            x={center[0] - 25}
-            y={center[1] - 25}
+            x={navWidth - 30}
+            y={30}
           />
         )}
       </svg>
-      {showChildren && (
+      {showChildren && open && (
         <div style={{ marginTop: 30 }}>
           {circle2.map((x, i) => {
             return (
