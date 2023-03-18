@@ -1,5 +1,4 @@
 import "./App.css";
-import { useState } from "react";
 import { siteMap as defaultSiteMap } from "./data/site-map";
 import { BubbleNav } from "./components/bubble-nav";
 import { setParents } from "./modules/parse-objects";
