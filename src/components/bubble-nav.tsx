@@ -14,7 +14,7 @@ import { Bubble } from "./bubble";
 import { Defs } from "./defs";
 import { ParentOrChildCard } from "./child-card";
 import { Theme } from "../index";
-import { Compass } from "./icons";
+import { Compass, IconEyeOpen } from "./icons";
 
 export type CirclePoint = {
   point: Point;
@@ -322,12 +322,9 @@ export const BubbleNav = ({
             top: 55,
             left: navWidth + 17,
           }}
+          onClick={() => setOpen(true)}
         >
-          <Compass
-            color={theme.primaryColor}
-            size={25}
-            onClick={() => setOpen(true)}
-          />
+          <IconEyeOpen color={theme.primaryColor} size={25} />
         </button>
       )}
     </div>

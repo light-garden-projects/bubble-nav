@@ -74,3 +74,25 @@ export const Compass = ({
     </svg>
   );
 };
+
+export const IconEyeOpen = ({ color, size }: IconProps) => {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size}>
+      <path
+        d="M12 19.5C6.5 19.5 3 15 1.5 12 3 9 6.5 4.5 12 4.5S21 9 22.5 12c-1.5 3-5 7.5-10.5 7.5Z"
+        stroke="#21251D"
+        strokeWidth={2}
+        strokeLinejoin="round"
+        fill={color || "none"}
+      />
+      <circle
+        cx={12}
+        cy={12}
+        r={3}
+        stroke={"currentColor"}
+        strokeWidth={2}
+        fill={color || "none"}
+      />
+    </svg>
+  );
+};
