@@ -16,7 +16,7 @@ function App({ siteMap, width = 300, theme, showChildren }: AppProps) {
   let currentUrl = window.location.pathname;
 
   if (!currentUrl.includes("https://scalar.usc.edu")) {
-    currentUrl = `https://scalar.usc.edu/works/${currentUrl}`;
+    currentUrl = `https://scalar.usc.edu${currentUrl}`;
   }
   console.log("currentUrl is:", currentUrl);
 
