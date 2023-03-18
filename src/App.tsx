@@ -13,8 +13,12 @@ type AppProps = {
 
 function App({ siteMap, width = 300, theme, showChildren }: AppProps) {
   // Detect the current page from the url
-  const currentUrl = window.location.pathname;
+  let currentUrl = window.location.pathname;
   console.log("currentUrl is:", currentUrl);
+
+  if (!currentUrl.includes("https://scalar.usc.edu")) {
+    currentUrl = `https://scalar.usc.edu/works/${currentUrl}`;
+  }
 
   const mySiteMap = siteMap || defaultSiteMap;
 
