@@ -319,16 +319,14 @@ export const BubbleNav = ({
             outline: "none",
             cursor: "pointer",
             position: "absolute",
-            top: 30,
-            left: navWidth - 60,
+            top: 55,
+            left: navWidth + 17,
           }}
         >
           <Compass
             color={theme.primaryColor}
-            size={30}
+            size={25}
             onClick={() => setOpen(true)}
-            // x={navWidth - 60}
-            // y={30}
           />
         </button>
       )}
