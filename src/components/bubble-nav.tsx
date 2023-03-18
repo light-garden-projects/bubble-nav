@@ -14,7 +14,8 @@ import { Bubble } from "./bubble";
 import { Defs } from "./defs";
 import { ParentOrChildCard } from "./child-card";
 import { Theme } from "../index";
-import { Compass, IconEyeOpen } from "./icons";
+// import { Compass, IconEyeOpen } from "./icons";
+import { IconEyeOpen } from "./icons";
 
 export type CirclePoint = {
   point: Point;
