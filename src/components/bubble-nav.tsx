@@ -59,6 +59,7 @@ export const BubbleNav = ({
 
   // Get the page object for the current URL
   const currentPage = useMemo(() => {
+    console.log("currentUrl", currentUrl);
     return getCurrentPage(currentUrl, siteMap);
   }, [currentUrl, siteMap]);
 
@@ -195,7 +196,6 @@ export const BubbleNav = ({
 
   if (!currentPage) {
     console.log("No current page");
-
     return null;
   }
 
