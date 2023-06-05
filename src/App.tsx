@@ -15,12 +15,9 @@ function App({ siteMap, width = 300, theme, showChildren }: AppProps) {
   // Detect the current page from the url
   let currentUrl = window.location.pathname;
 
-  // if (!currentUrl.includes("https://scalar.usc.edu")) {
-  //   currentUrl = `https://scalar.usc.edu${currentUrl}`;
-  // }
-  // console.log("currentUrl is:", currentUrl);
-
   const mySiteMap = siteMap || defaultSiteMap;
+
+  console.log("mySiteMap", mySiteMap);
 
   // Make sure the parent property is set for each page
   const sitemapWithParents = setParents(mySiteMap);
