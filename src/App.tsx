@@ -15,10 +15,10 @@ function App({ siteMap, width = 300, theme, showChildren }: AppProps) {
   // Detect the current page from the url
   let currentUrl = window.location.pathname;
 
-  if (!currentUrl.includes("https://scalar.usc.edu")) {
-    currentUrl = `https://scalar.usc.edu${currentUrl}`;
-  }
-  console.log("currentUrl is:", currentUrl);
+  // if (!currentUrl.includes("https://scalar.usc.edu")) {
+  //   currentUrl = `https://scalar.usc.edu${currentUrl}`;
+  // }
+  // console.log("currentUrl is:", currentUrl);
 
   const mySiteMap = siteMap || defaultSiteMap;
 
@@ -33,7 +33,7 @@ function App({ siteMap, width = 300, theme, showChildren }: AppProps) {
         maxWidth={width}
         onBubbleClick={(url) => {
           // setCurrentUrl(url);
-          console.log("Going to url", url);
+          // console.log("Going to url", url);
         }}
         theme={theme}
         showChildren={showChildren}
