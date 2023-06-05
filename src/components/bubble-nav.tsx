@@ -194,6 +194,8 @@ export const BubbleNav = ({
   }, [parentPage]);
 
   if (!currentPage) {
+    console.log("No current page");
+
     return null;
   }
 
