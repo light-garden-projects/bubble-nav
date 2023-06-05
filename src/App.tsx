@@ -13,11 +13,11 @@ type AppProps = {
 
 function App({ siteMap, width = 300, theme, showChildren }: AppProps) {
   // Detect the current page from the url
-  let currentUrl = window.location.pathname;
+  let currentUrl = window.location.href;
 
-  if (!currentUrl.includes("https://2020dreams.supdigital.org")) {
-    currentUrl = `https://2020dreams.supdigital.org${currentUrl}`;
-  }
+  // if (!currentUrl.includes("https://2020dreams.supdigital.org")) {
+  //   currentUrl = `https://2020dreams.supdigital.org${currentUrl}`;
+  // }
   // console.log("currentUrl is:", currentUrl);
 
   const mySiteMap = siteMap || defaultSiteMap;
