@@ -15,9 +15,12 @@ function App({ siteMap, width = 300, theme, showChildren }: AppProps) {
   // Detect the current page from the url
   let currentUrl = window.location.pathname;
 
-  const mySiteMap = siteMap || defaultSiteMap;
+  if (!currentUrl.includes("https://2020dreams.supdigital.org")) {
+    currentUrl = `https://2020dreams.supdigital.org${currentUrl}`;
+  }
+  // console.log("currentUrl is:", currentUrl);
 
-  console.log("mySiteMap", mySiteMap);
+  const mySiteMap = siteMap || defaultSiteMap;
 
   // Make sure the parent property is set for each page
   const sitemapWithParents = setParents(mySiteMap);
